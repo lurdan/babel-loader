@@ -6,6 +6,6 @@
    
    : (add-to-list 'load-path "/path/to/babel-loader.el")
    : (require 'babel-loader)
-   : (bl:init-load "/path/to/config")
+   : (bl:load-dir "/path/to/config")
 
 4. Have a fun!
