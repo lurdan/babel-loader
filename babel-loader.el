@@ -15,10 +15,12 @@
 
 (require 'init-loader)
 (require 'ob)
+(require 'bytecomp)
 
 (defun bl:compile (file exported-file)
-  (if (file-newer-than-file-p file exported-file)
-      (org-babel-tangle-file file exported-file "emacs-lisp")))
+  (when (file-newer-than-file-p file exported-file)
+    (org-babel-tangle-file file exported-file "emacs-lisp")
+    (byte-recompile-file exported-file nil 0)))
 
 (defun bl:compile-dir (dir)
   (mapc #'(lambda (file)
