@@ -5,7 +5,8 @@
 
 ;; Author: Ryo TAKAISHI <ryo.takaishi.0@gmail.com>
 ;; Created 25 Aug 2012
-;; Version 0.1
+;; Version: 0.1
+;; Package-Requires: ((init-loader "0.02"))
 
 ;; This file is part of GNU Emacs.
 ;; This help to load your config file written by Babel.
