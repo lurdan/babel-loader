@@ -21,7 +21,9 @@
 (defun bl:compile (file exported-file)
   (when (file-newer-than-file-p file exported-file)
     (org-babel-tangle-file file exported-file "emacs-lisp")
-    (byte-recompile-file exported-file nil 0)))
+    (byte-recompile-file exported-file nil 0)
+    (setq bl:compiled-p t)
+    ))
 
 (defun bl:compile-dir (dir)
   (mapc #'(lambda (file)
@@ -33,7 +35,9 @@
 (defun bl:load-dir (dir)
   (progn
     (bl:compile-dir dir)
-    (init-loader-load dir)))
+    (unless bl:compiled-p
+      (init-loader-load dir))
+    ))
 
 (provide 'babel-loader)
 
