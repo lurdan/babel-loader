@@ -18,6 +18,8 @@
 (require 'ob)
 (require 'bytecomp)
 
+(setq bl:compiled-p nil)
+
 (defun bl:compile (file exported-file)
   (when (file-newer-than-file-p file exported-file)
     (org-babel-tangle-file file exported-file "emacs-lisp")
@@ -35,7 +37,11 @@
 (defun bl:load-dir (dir)
   (progn
     (bl:compile-dir dir)
-    (unless bl:compiled-p
+    (if bl:compiled-p
+	(progn
+	  (setq inhibit-startup-message t)
+	  (switch-to-buffer "*Compile-Log*" nil t)
+	  )
       (init-loader-load dir))
     ))
 
