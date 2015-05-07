@@ -19,6 +19,7 @@
 (require 'bytecomp)
 
 (setq bl:compiled-p nil)
+(setq bl:debug nil)
 
 (defun bl:compile (file exported-file)
   (when (file-newer-than-file-p file exported-file)
@@ -37,7 +38,7 @@
 (defun bl:load-dir (dir)
   (progn
     (bl:compile-dir dir)
-    (if bl:compiled-p
+    (if (and bl:compiled-p bl:debug)
 	(progn
 	  (setq inhibit-startup-message t)
 	  (switch-to-buffer "*Compile-Log*" nil t)
